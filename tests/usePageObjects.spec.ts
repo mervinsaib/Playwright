@@ -48,3 +48,8 @@ test('parametized methods @smoke @regression', async({page}) => {
     // await onDatepickerPage.selectDatepickerWithRangeFromToday(7, 8)  
 })
 
+test.only('Testing with Argos CI', async({page}) => {
+    const navigateTo = new NavigationPage(page)
+    await navigateTo.formLayoutsPage()
+    await navigateTo.datepickerPage()
+})

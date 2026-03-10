@@ -15,6 +15,14 @@ export default defineConfig<TestOptions>({
   
   //reporter: 'list',
   reporter:[
+    process.env.CI ? ["dot"] : ["list"],
+    [
+      "@argos-ci/playwright/reporter",
+      {
+        // Upload to Argos on CI only.
+        uploadToArgos: !!process.env.CI,
+      },
+    ],
     ['html'],
     ['json', { outputFile: 'test-results/jsonReport.json' }],
     ['junit', { outputFile: 'test-results/junitReport.xml' }]
@@ -28,6 +36,7 @@ export default defineConfig<TestOptions>({
       : 'http://localhost:4200/',
 
     trace: 'on-first-retry',
+    screenshot: "only-on-failure",
     actionTimeout: 2000,
     navigationTimeout: 25000,
     headless: true,
